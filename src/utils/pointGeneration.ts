@@ -48,3 +48,28 @@ export function generateRandomPoint(): Point {
     y: getValidPointCoordinate(y, CANVAS.HEIGHT)
   };
 }
+
+export function generateRandomPointWithRetry(maxRetries = 3): Point {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const point = generateRandomPoint();
+      if (isFinite(point.x) && isFinite(point.y) && 
+          point.x >= GAME.BOUNDARY_PADDING && 
+          point.x <= CANVAS.WIDTH - GAME.BOUNDARY_PADDING &&
+          point.y >= GAME.BOUNDARY_PADDING && 
+          point.y <= CANVAS.HEIGHT - GAME.BOUNDARY_PADDING) {
+        return point;
+      }
+      console.warn(`Invalid point generated on attempt ${i + 1}:`, point);
+    } catch (error) {
+      console.error(`Error generating point on attempt ${i + 1}:`, error);
+    }
+  }
+  
+  // Fallback to center of canvas if all retries fail
+  console.warn('All point generation attempts failed, using fallback center point');
+  return {
+    x: CANVAS.WIDTH / 2,
+    y: CANVAS.HEIGHT / 2
+  };
+}

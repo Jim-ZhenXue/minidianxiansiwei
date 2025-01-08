@@ -43,10 +43,23 @@ function drawTarget(ctx: CanvasRenderingContext2D, point: Point) {
 }
 
 export function drawTargetPoint({ ctx, point }: DrawTargetPointOptions) {
-  if (!point || !isFinite(point.x) || !isFinite(point.y)) return;
+  if (!point) {
+    console.warn('Target point is null or undefined');
+    return;
+  }
   
-  ctx.save();
-  drawGlow(ctx, point);
-  drawTarget(ctx, point);
-  ctx.restore();
+  if (!isFinite(point.x) || !isFinite(point.y)) {
+    console.warn('Invalid target point coordinates:', point);
+    return;
+  }
+  
+  try {
+    ctx.save();
+    drawGlow(ctx, point);
+    drawTarget(ctx, point);
+    ctx.restore();
+  } catch (error) {
+    console.error('Error drawing target point:', error);
+    console.error('Point:', point);
+  }
 }

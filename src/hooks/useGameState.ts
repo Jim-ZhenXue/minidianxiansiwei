@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { GameState, GameMode, Point } from '../types';
-import { generateRandomPoint } from '../utils/pointGeneration';
+import { generateRandomPointWithRetry } from '../utils/pointGeneration';
 import { isPointInRange } from '../utils/geometry';
 import { CANVAS, GAME } from '../constants';
 
@@ -10,7 +10,7 @@ export function useGameState() {
     points: [],
     score: 0,
     level: 1,
-    targetPoint: generateRandomPoint(),
+    targetPoint: generateRandomPointWithRetry(),
     angle: 0,
     showGrid: false,
     showDirections: false,
@@ -21,7 +21,7 @@ export function useGameState() {
     if (state.mode === 'POINT' && !state.targetPoint) {
       setState(prev => ({
         ...prev,
-        targetPoint: generateRandomPoint()
+        targetPoint: generateRandomPointWithRetry()
       }));
     }
   }, [state.mode, state.targetPoint]);
@@ -44,7 +44,7 @@ export function useGameState() {
             score: prev.score + GAME.POINT_SCORE,
             level: prev.level + 1,
             points: [],
-            targetPoint: generateRandomPoint()
+            targetPoint: generateRandomPointWithRetry()
           };
         }
         // Missed the target - just add the point
@@ -149,7 +149,7 @@ export function useGameState() {
           mode: prev.mode === 'ERASER' ? 'LINE' : prev.mode,
           angle: prev.mode === 'RAY' ? 0 : undefined,
           targetPoint: prev.mode === 'POINT' 
-            ? generateRandomPoint()
+            ? generateRandomPointWithRetry()
             : null
         };
       }
@@ -160,7 +160,7 @@ export function useGameState() {
         points: [],
         angle: mode === 'RAY' ? 0 : undefined,
         targetPoint: mode === 'POINT' 
-          ? generateRandomPoint()
+          ? generateRandomPointWithRetry()
           : null
       };
     });
