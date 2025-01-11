@@ -9,24 +9,34 @@
         position: fixed;
         top: 20px;
         left: 20px;
-        padding: 10px 20px;
-        background-color: #07c160;
+        width: 20px;
+        height: 20px;
+        background: transparent;
         color: white;
         border: none;
-        border-radius: 5px;
-        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
+        transition: all 0.3s ease;
         z-index: 1000;
+      }
+      .back-button:hover {
+        transform: translateY(-2px);
+      }
+      .back-button i {
+        font-size: 16px;
       }
     </style>
   </head>
   <body>
-    <button class="back-button" onclick="goBack()">返回小程序</button>
+    <div class="back-button" onclick="goBack()">
+      <i class="fas fa-home"></i>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
       function goBack() {
-        // 判断是否在小程序环境中
         if (window.wx && wx.miniProgram) {
           wx.miniProgram.navigateBack({
             delta: 1
