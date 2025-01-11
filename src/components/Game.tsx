@@ -15,12 +15,12 @@ export function Game() {
   } = useGameState();
 
   return (
-    <div className="min-h-screen flex bg-black">
+    <div className="h-[50vh] flex bg-black">
       {/* Left Column */}
-      <div className="w-1/2 flex flex-col p-8 border-r border-gray-800">
+      <div className="w-1/2 flex flex-col p-4 border-r border-gray-800">
         {/* Header Section */}
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold text-center">
+        <header className="mb-4">
+          <h1 className="text-2xl font-bold text-center">
             <span className="title-gradient">点</span>
             <span className="text-white">与</span>
             <span className="title-gradient">线</span>
@@ -45,8 +45,8 @@ export function Game() {
       </div>
 
       {/* Right Column - Canvas */}
-      <div className="w-1/2 p-8 flex items-center justify-center">
-        <div className="w-full h-[600px] bg-white rounded-lg overflow-hidden">
+      <div className="w-1/2 p-4 flex items-center justify-center">
+        <div className="w-full h-[45vh] bg-white rounded-lg overflow-hidden">
           <GameCanvas 
             gameState={gameState}
             onCanvasClick={handleCanvasClick}
