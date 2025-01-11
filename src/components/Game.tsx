@@ -43,7 +43,7 @@ export function Game() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black">
-      <div className="h-[calc(100vh-100px)] w-[calc(100vw-100px)] flex">
+      <div className="h-[calc(100vh-60px)] w-[calc(100vw-60px)] flex">
         {/* Left Column */}
         <div className="w-1/2 flex flex-col p-3 border-r border-gray-800">
           {/* Header Section */}
