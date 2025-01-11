@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { GameControls } from './GameControls';
 import { GameCanvas } from './Canvas/GameCanvas';
 import { useGameState } from '../hooks/useGameState';
@@ -14,13 +14,40 @@ export function Game() {
     toggleDirections
   } = useGameState();
 
+  const [isLandscape, setIsLandscape] = useState(window.innerHeight < window.innerWidth);
+
+  useEffect(() => {
+    const handleOrientation = () => {
+      setIsLandscape(window.innerHeight < window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleOrientation);
+    window.addEventListener('orientationchange', handleOrientation);
+
+    return () => {
+      window.removeEventListener('resize', handleOrientation);
+      window.removeEventListener('orientationchange', handleOrientation);
+    };
+  }, []);
+
+  if (!isLandscape) {
+    return (
+      <div className="fixed inset-0 bg-black flex items-center justify-center">
+        <div className="text-white text-center p-4">
+          <p className="text-xl">请旋转设备至横屏模式</p>
+          <p className="mt-2">🔄</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="h-[50vh] flex bg-black">
+    <div className="fixed inset-0 flex bg-black">
       {/* Left Column */}
-      <div className="w-1/2 flex flex-col p-4 border-r border-gray-800">
+      <div className="w-1/2 flex flex-col p-3 border-r border-gray-800">
         {/* Header Section */}
-        <header className="mb-4">
-          <h1 className="text-2xl font-bold text-center">
+        <header className="mb-2">
+          <h1 className="text-xl font-bold text-center">
             <span className="title-gradient">点</span>
             <span className="text-white">与</span>
             <span className="title-gradient">线</span>
@@ -45,8 +72,8 @@ export function Game() {
       </div>
 
       {/* Right Column - Canvas */}
-      <div className="w-1/2 p-4 flex items-center justify-center">
-        <div className="w-full h-[45vh] bg-white rounded-lg overflow-hidden">
+      <div className="w-1/2 p-3 flex items-center justify-center">
+        <div className="w-full h-full bg-white rounded-lg overflow-hidden">
           <GameCanvas 
             gameState={gameState}
             onCanvasClick={handleCanvasClick}
