@@ -32,8 +32,8 @@ export function Game() {
 
   if (!isLandscape) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center">
-        <div className="text-white text-center p-4">
+      <div className="bg-black flex items-center justify-center p-4">
+        <div className="text-white text-center">
           <p className="text-xl">请旋转设备至横屏模式</p>
           <p className="mt-2">🔄</p>
         </div>
@@ -42,8 +42,8 @@ export function Game() {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black">
-      <div className="h-[calc(100vh-60px)] w-[calc(100vw-60px)] flex">
+    <div className="bg-black flex items-center justify-center p-8">
+      <div className="w-[800px] h-[500px] flex">
         {/* Left Column */}
         <div className="w-1/2 flex flex-col p-3 border-r border-gray-800">
           {/* Header Section */}
