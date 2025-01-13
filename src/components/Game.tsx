@@ -40,7 +40,7 @@ export function Game() {
   }
 
   return (
-    <div className="w-[800px] h-[500px] flex">
+    <div className="w-[800px] h-[425px] flex">
       {/* Left Column */}
       <div className="w-1/2 flex flex-col p-3 border-r border-gray-800">
         {/* Header Section */}
