@@ -3,6 +3,7 @@ import { GameState, GameMode, Point } from '../types';
 import { generateRandomPointWithRetry } from '../utils/pointGeneration';
 import { isPointInRange } from '../utils/geometry';
 import { CANVAS, GAME } from '../constants';
+import { SoundManager } from '../utils/sounds';
 
 export function useGameState() {
   const [state, setState] = useState<GameState>({
@@ -34,11 +35,12 @@ export function useGameState() {
     }));
   }, []);
 
-  const handleCanvasClick = useCallback((newPoint: Point) => {
+  const handleCanvasClick = useCallback(async (newPoint: Point) => {
     setState(prev => {
       if (prev.mode === 'POINT' && prev.targetPoint) {
         if (isPointInRange(newPoint, prev.targetPoint)) {
           // Hit the target - update score and generate new target
+          SoundManager.play('success');
           return {
             ...prev,
             score: prev.score + GAME.POINT_SCORE,
@@ -48,6 +50,7 @@ export function useGameState() {
           };
         }
         // Missed the target - just add the point
+        SoundManager.play('click');
         return {
           ...prev,
           points: [...prev.points, newPoint]
@@ -56,6 +59,7 @@ export function useGameState() {
       
       // LINE mode - store two points to create a line
       if (prev.mode === 'LINE') {
+        SoundManager.play('click');
         // If we have no points yet, this is the first point
         if (prev.points.length === 0) {
           return {
@@ -79,6 +83,7 @@ export function useGameState() {
 
       // RAY mode - store two points (start point and direction point)
       if (prev.mode === 'RAY') {
+        SoundManager.play('click');
         // If we have no points yet, this is the start point
         if (prev.points.length === 0) {
           return {
@@ -102,6 +107,7 @@ export function useGameState() {
 
       // DIRECTION mode - add point
       if (prev.mode === 'DIRECTION') {
+        SoundManager.play('click');
         // If we have no points yet, this is the first point
         if (prev.points.length === 0) {
           return {
@@ -125,12 +131,14 @@ export function useGameState() {
 
       // ERASER mode - clear all points
       if (prev.mode === 'ERASER') {
+        SoundManager.play('erase');
         return {
           ...prev,
           points: []
         };
       }
 
+      SoundManager.play('click');
       return {
         ...prev,
         points: [...prev.points, newPoint]
@@ -138,7 +146,8 @@ export function useGameState() {
     });
   }, []);
 
-  const switchMode = useCallback((mode: GameMode) => {
+  const switchMode = useCallback(async (mode: GameMode) => {
+    await SoundManager.play('switch');
     setState(prev => {
       // If switching to eraser, clear points and immediately switch back to previous mode
       if (mode === 'ERASER') {

@@ -10,13 +10,15 @@ interface DrawTargetPointOptions {
 let lastTime = 0;
 let currentScale = 1;
 const updateInterval = 50; // Update scale every 50ms for smoother performance
+const MIN_SCALE = 0.5; // Minimum scale to prevent negative radius
 
 function drawGlow(ctx: CanvasRenderingContext2D, point: Point) {
   // Only update the animation scale at intervals to improve performance
   const now = Date.now();
   if (now - lastTime > updateInterval) {
     const time = now / 1000;
-    currentScale = 1 + TARGET_POINT.PULSE_SCALE * Math.sin(time * TARGET_POINT.PULSE_SPEED);
+    // Ensure scale never goes below MIN_SCALE
+    currentScale = MIN_SCALE + ((1 + Math.sin(time * TARGET_POINT.PULSE_SPEED)) / 2) * TARGET_POINT.PULSE_SCALE;
     lastTime = now;
   }
   

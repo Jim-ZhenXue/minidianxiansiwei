@@ -3,6 +3,7 @@ import { GameControls } from './GameControls';
 import { GameCanvas } from './Canvas/GameCanvas';
 import { useGameState } from '../hooks/useGameState';
 import { CANVAS } from '../constants';
+import { SoundManager } from '../utils/sounds';
 
 export function Game() {
   const { 
@@ -17,6 +18,20 @@ export function Game() {
   const [isLandscape, setIsLandscape] = useState(window.innerHeight < window.innerWidth);
 
   useEffect(() => {
+    // Initialize sound system with user interaction
+    const initAudio = async () => {
+      await SoundManager.init();
+      // Play a silent sound to unlock audio
+      await SoundManager.play('click');
+    };
+
+    const handleFirstInteraction = () => {
+      initAudio();
+      document.removeEventListener('click', handleFirstInteraction);
+    };
+
+    document.addEventListener('click', handleFirstInteraction);
+    
     const handleOrientation = () => {
       setIsLandscape(window.innerHeight < window.innerWidth);
     };
@@ -27,6 +42,7 @@ export function Game() {
     return () => {
       window.removeEventListener('resize', handleOrientation);
       window.removeEventListener('orientationchange', handleOrientation);
+      document.removeEventListener('click', handleFirstInteraction);
     };
   }, []);
 

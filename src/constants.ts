@@ -42,8 +42,8 @@ export const TARGET_POINT = {
   INNER_RADIUS: 3,
   OUTER_RADIUS: 7,
   GLOW_RADIUS: 15,
-  PULSE_SCALE: 1.2,
-  PULSE_SPEED: 0.005,
+  PULSE_SCALE: 0.8,  // Reduced from 1.2 for smoother animation
+  PULSE_SPEED: 3,    // Increased for more noticeable pulsing
 };
 
 export const ANIMATION = {
