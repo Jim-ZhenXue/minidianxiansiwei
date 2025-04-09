@@ -56,9 +56,9 @@ export function Game() {
   }
 
   return (
-    <div className="w-[800px] h-[400px] flex">
+    <div className="w-[1200px] h-[600px] flex">
       {/* Left Column */}
-      <div className="w-1/2 flex flex-col p-3 border-r border-gray-800">
+      <div className="w-1/4 flex flex-col p-3 border-r border-gray-800">
         {/* Header Section */}
         <header className="mb-2">
           <h1 className="text-xl font-bold text-center">
@@ -86,8 +86,8 @@ export function Game() {
       </div>
 
       {/* Right Column - Canvas */}
-      <div className="w-1/2 p-3 flex items-center justify-center">
-        <div className="w-full h-full bg-white rounded-lg overflow-hidden mt-[30px]">
+      <div className="w-3/4 p-4 flex items-center justify-center">
+        <div className="w-full h-full bg-white rounded-lg overflow-hidden mt-[10px]">
           <GameCanvas 
             gameState={gameState}
             onCanvasClick={handleCanvasClick}
