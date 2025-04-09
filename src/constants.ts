@@ -1,8 +1,8 @@
 import { GameMode } from './types';
 
 export const CANVAS = {
-  WIDTH: 800,
-  HEIGHT: 600,
+  WIDTH: 1200,
+  HEIGHT: 900,
   GRID_SIZE: 20,
 };
 
