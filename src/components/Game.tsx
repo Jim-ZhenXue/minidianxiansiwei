@@ -87,7 +87,7 @@ export function Game() {
 
       {/* Right Column - Canvas */}
       <div className="w-3/4 p-4 flex items-center justify-center">
-        <div className="w-full h-full bg-white rounded-lg overflow-hidden mt-[10px]">
+        <div className="w-[600px] h-[600px] bg-white rounded-lg overflow-hidden mt-[10px]">
           <GameCanvas 
             gameState={gameState}
             onCanvasClick={handleCanvasClick}
