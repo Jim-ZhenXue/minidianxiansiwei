@@ -85,7 +85,7 @@ export function GameControls({
           `}
         >
           <span className="text-lg">{showGrid ? '⊞' : '⊡'}</span>
-          <span className="font-medium text-xs">{showGrid ? '隐藏网络' : '显示网络'}</span>
+          <span className="font-medium text-xs">{showGrid ? '隐藏网格' : '显示网格'}</span>
         </button>
 
         <button
